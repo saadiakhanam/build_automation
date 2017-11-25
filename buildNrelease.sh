@@ -21,7 +21,7 @@ var_validation() {
 
 }
 
-build_project(){
+build_project() {
 
   REPONAME=${1}
   git clone ${REPONAME}
