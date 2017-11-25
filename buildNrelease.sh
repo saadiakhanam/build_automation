@@ -85,7 +85,8 @@ S3_BUCKET="jenkins3upload"
 
 
 ########## Job Execution ##########
-set_debug; var_validation
+set_debug 
+var_validation
 build_project ${REPONAME}
 s3_upload jenkins3upload
 ########## Job Execution ##########
