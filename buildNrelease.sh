@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ####### Workspace Cleaning #####
-rm -rf ${WORKSPACE}/*
+#rm -rf ${WORKSPACE}/*
 ####### Workspace Cleaning #####
 
 set_debug() {
