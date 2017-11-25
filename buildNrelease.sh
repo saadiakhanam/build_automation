@@ -14,7 +14,7 @@ set_debug() {
 
 var_validation() {
 
- if [[ -z ${aws_access_key_id} || -z ${aws_secret_access_key} ]]; then
+ if [[ -z ${aws_access_key_id} ]] || [[ -z ${aws_secret_access_key} ]]; then
   echo "ERROR: Input parameters missing"
   exit 1
  fi
