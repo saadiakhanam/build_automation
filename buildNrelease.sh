@@ -56,8 +56,8 @@ build_project() {
     exit 1
   fi
 
-  pomversion_update()
-  github_checkin()
+  pomversion_update
+  github_checkin
   
   
   mvn clean
