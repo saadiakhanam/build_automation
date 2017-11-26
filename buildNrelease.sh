@@ -38,16 +38,16 @@ github_checkin() {
 
   git checkout ${GITHUB_BRANCH}
   git pull 
-  git add -A
-  git commit -m "Updating version in pom.xml"
-  git push https://${github_username}:${github_password}@https://github.com/saadiakhanam/java-maven-junit-helloworld.git refs/heads/${GITHUB_BRANCH}:refs/heads/${GITHUB_BRANCH}
+  git add pom.xml
+  git commit -m "Chekin from Jenkins"
+  git push https://${github_username}:${github_password}@github.com/saadiakhanam/java-maven-junit-helloworld.git refs/heads/${GITHUB_BRANCH}:refs/heads/${GITHUB_BRANCH}
 
 }
 
 build_project() {
 
   REPONAME=${1}
-  git clone ${REPONAME}
+  git clone -b ${GITHUB_BRANCH} ${REPONAME}
   
   cd ./${TARGET_DIR}
   
