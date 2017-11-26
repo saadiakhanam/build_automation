@@ -21,6 +21,29 @@ var_validation() {
 
 }
 
+pomversion_update() {
+
+  VERSION=$(cat pom.xml | egrep "SNAPSHOT" | cut -d">" -f2 | cut -d"<" -f1 | sed 's/ //g')
+  VERSION1=$(echo $VERSION | cut -d"." -f1)
+  VERSION2=$(echo $VERSION | cut -d"." -f2 | awk -F"-" '{print $1}')
+  VERSION3="SNAPSHOT"
+  VERSION2_NEW=$((${VERSION2}+1))
+  VERSION_NEW=${VERSION1}.${VERSION2_NEW}-${VERSION3}
+
+  sed -i -e "s/${VERSION}/${VERSION_NEW}/" pom.xml
+
+}
+
+github_checkin() {
+
+  git checkout ${GITHUB_BRANCH}
+  git pull 
+  git add -A
+  git commit -m "Updating version in pom.xml"
+  git push https://${github_username}:${github_password}@https://github.com/saadiakhanam/java-maven-junit-helloworld.git refs/heads/${GITHUB_BRANCH}:refs/heads/${GITHUB_BRANCH}
+
+}
+
 build_project() {
 
   REPONAME=${1}
@@ -32,6 +55,9 @@ build_project() {
     echo "ERROR: POM not found"
     exit 1
   fi
+
+  pomversion_update()
+  github_checkin()
   
   
   mvn clean
@@ -76,10 +102,13 @@ aws --region=us-east-1 s3 cp ${ARTYPE} s3://${S3_BUCKET}/
 export JAVA_HOME="/opt/runtime/jdk/jdk1.8.0_151"
 export AWS_ACCESS_KEY_ID=${aws_access_key_id}
 export AWS_SECRET_ACCESS_KEY=${aws_secret_access_key}
+git config --local user.name saadiakhanam
+git config --local user.email saadia.khanam@aol.com
 WORKSPACE=$(pwd)
 REPONAME="https://github.com/saadiakhanam/java-maven-junit-helloworld.git"
 TARGET_DIR="java-maven-junit-helloworld"
 S3_BUCKET="jenkins3upload"
+GITHUB_BRANCH="master"
 ###### Jobs Global Variables ########
 
 
