@@ -122,7 +122,7 @@ s3_upload jenkins3upload
 
 
 ####### Workspace Cleaning #####
-rm -rf ${WORKSPACE}/*
+#rm -rf ${WORKSPACE}/*
 ####### Workspace Cleaning #####
 
 
