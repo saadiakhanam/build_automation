@@ -10,7 +10,15 @@ set_debug() {
  fi
 }
 
+validate_trigger() {
 
+   COMMIT_MSG=`git log --format=%B -n 1 | sed 's/ //g'`
+
+  if [[ ${COMMIT_MSG} == "ChekinfromJenkins" ]]; then
+    echo "INFO: No build required." 
+    exit 0
+  fi
+}
 
 var_validation() {
 
@@ -51,6 +59,9 @@ build_project() {
   
   cd ./${TARGET_DIR}
   
+  validate_trigger
+
+
   if [[ ! -f ./pom.xml ]]; then
     echo "ERROR: POM not found"
     exit 1
